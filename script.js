@@ -1,6 +1,7 @@
 const searchFrom = document.querySelector(".search");
 const input = document.querySelector(".input");
 const articleList = document.querySelector(".list");
+const API_KEY = "cdbjlp2ad3ibgg4mpkbgcdbjlp2ad3ibgg4mpkc0";
 
 searchFrom.addEventListener("submit", searchTopic);
 
@@ -25,6 +26,4 @@ function searchTopic(e) {
         articleList.appendChild(li);
       });
     });
-
 }
-

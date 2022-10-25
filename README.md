@@ -33,7 +33,7 @@ Try searching your favorite stock tickers to display articles and prices past an
 
     ```md
     ![alt text](assets/images/screenshot.png)
-    ``` 
+    ```
 
 ## Credits
 
@@ -45,7 +45,6 @@ Ryan - https://github.com/rtcottle
 Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
-
 
 - Stock API: https://www.alphavantage.co/
 <!-- TODO: Add API info, resources, etc.  -->
@@ -79,4 +78,3 @@ This project is under the [![License: MIT](https://img.shields.io/badge/License-
 ## Tests
 
 <!-- Go the extra mile and write tests for your application. Then provide examples on how to run them here. -->
-
