@@ -7,7 +7,7 @@ searchFrom.addEventListener("submit", searchTopic);
 function searchTopic(e) {
   e.preventDefault();
   let topic = input.value;
-  let url = `https://www.loc.gov/search/?q=${topic}&fo=json`;
+  let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${topic}&limit=25&apikey=Y7EZGMG4B18PRI2S`;
 
   fetch(url)
     .then((res) => {
@@ -15,12 +15,12 @@ function searchTopic(e) {
     })
     .then((data) => {
       console.log(data);
-      data.results.forEach((results) => {
+      data.feed.forEach((feed) => {
         let li = document.createElement("li");
         let a = document.createElement("a");
-        a.setAttribute("href", results.url);
+        a.setAttribute("href", feed.url);
         a.setAttribute("target", "_blank");
-        a.textContent = results.title;
+        a.textContent = feed.title;
         li.appendChild(a);
         articleList.appendChild(li);
       });
