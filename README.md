@@ -29,11 +29,11 @@ Try searching your favorite stock tickers to display articles and prices past an
 
 <!-- TODO: -->
 
-<!-- To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+<!-- To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:-->
 
     ```md
     ![alt text](assets/images/screenshot.png)
-    ``` -->
+    ``` 
 
 ## Credits
 
@@ -46,8 +46,8 @@ Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
 
-- Stock API: https://www.alphavantage.co/
 
+- Stock API: https://www.alphavantage.co/
 <!-- TODO: Add API info, resources, etc.  -->
 
 List your collaborators, if any, with links to their GitHub profiles.
@@ -79,3 +79,4 @@ This project is under the [![License: MIT](https://img.shields.io/badge/License-
 ## Tests
 
 <!-- Go the extra mile and write tests for your application. Then provide examples on how to run them here. -->
+
