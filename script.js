@@ -25,4 +25,6 @@ function searchTopic(e) {
         articleList.appendChild(li);
       });
     });
+
 }
+
