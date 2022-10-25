@@ -46,6 +46,8 @@ Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
 
+- Stock API: https://www.alphavantage.co/
+
 <!-- TODO: Add API info, resources, etc.  -->
 
 List your collaborators, if any, with links to their GitHub profiles.
