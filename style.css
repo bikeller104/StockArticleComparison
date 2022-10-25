@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+header {
+    padding: 10px;
+}
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#search-box {
+    margin-top: 1em;
+    width: 350px;
+}
+
+#submit-btn {
+    margin-top: 1rem;
+    width: 100px;
+}
+
+ul li {
+    list-style-type: none;    
+}
