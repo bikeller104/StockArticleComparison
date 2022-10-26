@@ -6,6 +6,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
+    <link rel="stylesheet" href="./assets/datepicker/dist/datepicker.min.css" />
     <link rel="stylesheet" href="style.css" />
     <title>News API</title>
   </head>
@@ -16,8 +17,15 @@
       <input type="submit" />
     </form>
 
+    <form id="start-date-form">
+      <label for="date-range">Date Range:</label>
+      <input type="text" id="range" name="start-date" class="start" />
+      <input type="text" id="range" name="end-date" class="end" />
+    </form>
+
     <div class="container" />
     <ul class="list"></ul>
+    <script src="./assets/datepicker/dist/datepicker.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
