@@ -7,10 +7,13 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
     <link rel="stylesheet" href="./assets/datepicker/dist/datepicker.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Stock|News API</title>
   </head>
-  <body class="content is-large container">
+  <body class="page dark">
+    <header>
+      <h1>Stock News Lookup</h1>
+    </header>
     <main>
       <aside class="past-searches">Recent Searches</aside>
       <form class="search">
@@ -37,10 +40,22 @@
     </main>
     <footer>
       <div class="content is-normal has-text-centered">
-        <p>Footer Content 2022</p>
+        <div class="toggle">
+          <div>
+            <p>Dark &nbsp;&nbsp; </p>
+          </div>
+          <label class="switch col">
+            <input type="checkbox" id="theme-switcher">
+            <span class="slider round"></span>
+          </label>      
+          <div>
+            <p> &nbsp;&nbsp; Light</p>
+          </div> 
+        </div>
+        <p>Created by The Squares 2022</p>
       </div>
     </footer>
     <script src="./assets/datepicker/dist/datepicker.min.js"></script>
-    <script src="./script.js"></script>
+    <script src="././assets/js/script.js"></script>
   </body>
 </html>
