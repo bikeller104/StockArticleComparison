@@ -2,22 +2,13 @@
 
 ## Description
 
-This website shows historic articles and current articles along with a stock price.
+This website shows historic articles and current articles along with a stock price to compare historical data and current trends to make informed decisions.
 
 <!-- TODO: Fill these out below-->
-<!-- - What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn? -->
 
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
+- This was the first group project in the coding bootcamp.
+- We chose this because it seemed like useful information to have when deciding on stocks.
+- We learned that working together helps a project to go along faster.
 
 ## Installation
 
@@ -31,9 +22,7 @@ Try searching your favorite stock tickers to display articles and prices past an
 
 <!-- To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:-->
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+![Screenshot](./screenshot.png)
 
 ## Credits
 
