@@ -4,18 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Search API</title>
   </head>
-  <body>
-    <form class="search">
-      <label>Search</label>
-      <input class="input" type="text" />
-      <input type="submit" />
-    </form>
-
-    <div class="container" />
-    <ul class="list"></ul>
-    <script src="script.js"></script>
+  <body class="page dark">
+    <header>
+      <h1>Stock News Lookup</h1>      
+    </header>
+    <div id="search-results">
+      <!--SEARCH RESULTS GO HERE-->
+    </div>
+    <footer>
+      <div class="content is-normal has-text-centered">
+        <div class="toggle">
+          <div>
+            <p>Dark &nbsp;&nbsp; </p>
+          </div>
+          <label class="switch col">
+            <input type="checkbox" id="theme-switcher">
+            <span class="slider round"></span>
+          </label>      
+          <div>
+            <p> &nbsp;&nbsp; Light</p>
+          </div> 
+        </div>
+        <p>Created by The Squares 2022</p>
+      </div>
+    </footer>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>

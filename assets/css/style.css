@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;    
+    font-family: 'Times New Roman', Times, serif;
+}
+
+header {
+    padding: 10px;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: .5em;
+}
+
+p {
+    margin-top: 10px;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+aside {
+    margin: 1rem;
+}
+
+label {
+    font-size: 1.5rem;
+}
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#search-box {
+    margin-top: 1em;
+    width: 350px;
+}
+
+#submit-btn {
+    margin-top: 1rem;
+    width: 100px;
+}
+
+ul li {
+    list-style-type: none;    
+}
+
+
+/* Dark-Light Mode Toggle */  
+.toggle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dark Mode */
+.dark {
+   background-color:#414B5B;
+   height: 100vh;
+   color: #bebebe   
+}
+  
+.dark li a {
+   color: #bebebe;
+}
+  
+.dark li a:hover {
+   background-color: #111;
+}
+
+.dark input {
+    background-color: #111;
+    color: #f5f5f5;
+}
+
+.dark input::placeholder {
+    color: #bbbbc4;
+}
+  
+/* Light Mode */
+.light {
+   background-color: white;
+   color: black;
+   height: 100vh;
+}
+  
+.light li a {
+  color: black;
+}
+  
+.light li a:hover {
+   background-color: rgb(130, 140, 148);
+}
+  
+/* Styling the Switch button */
+.switch {
+   position: relative;
+   display: inline-block;
+   width: 60px;
+   height: 34px;
+}
+  
+/* Hide default HTML checkbox */
+.switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+  
+/* The slider */
+.slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #111;
+   -webkit-transition: .4s;
+   transition: .4s;
+}
+  
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+  
+input:checked + .slider {
+  background-color: rgb(130, 140, 148);
+}
+ 
+input:focus + .slider {
+  box-shadow: 0 0 1px rgb(69, 71, 73);
+}
+  
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+  
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+  
+.slider.round:before {
+  border-radius: 50%;
+}
