@@ -1,10 +1,12 @@
 const searchFrom = document.querySelector(".search");
 const input = document.querySelector(".input");
 const articleList = document.querySelector(".list");
+const searchHistory = document.querySelector(".past-searches");
 
 searchFrom.addEventListener("submit", searchTopic);
 
 function searchTopic(e) {
+  articleList.innerHTML = "";
   e.preventDefault();
   let topic = input.value;
   let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${topic}&limit=25&apikey=Y7EZGMG4B18PRI2S`;
@@ -27,12 +29,25 @@ function searchTopic(e) {
     });
 }
 
+//saves searches to local storage and generates button to redo search
 function pastTopics() {
-  let pastArticles = input.value;
-  let articles = [];
-  localStorage.setItem("pastArticles", JSON.stringify(pastArticles));
+  let pastArticlesData = input.value;
+  let pastArticles = [];
+  localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
+
+  var storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
+  if (storedArticles) {
+    pastArticles.push(storedArticles);
+  }
   console.log(pastArticles);
-  articles.push(...pastArticles);
+  if (storedArticles.length) {
+    pastArticles.forEach((e) => {
+      let historyButton = document.createElement("button");
+      searchHistory.appendChild(historyButton);
+      historyButton.textContent = e;
+      historyButton.setAttribute("class", "button");
+    });
+  }
 }
 
 searchFrom.addEventListener("submit", pastTopics);
