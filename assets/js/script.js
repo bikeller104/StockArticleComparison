@@ -31,6 +31,10 @@ function searchTopic(e) {
 
   fetch(url)
     .then((res) => {
+      //adds error if ticker isn't found
+      if (!url) {
+        return alert("Ticker Not Found");
+      }
       return res.json();
     })
     .then((data) => {
@@ -57,6 +61,7 @@ function pastTopics() {
   if (storedArticles) {
     pastArticles.push(storedArticles);
   }
+  //not sure if this works or not. Test later
   console.log(pastArticles);
   if (storedArticles.length) {
     pastArticles.forEach((e) => {
@@ -65,6 +70,7 @@ function pastTopics() {
       historyButton.textContent = e;
       historyButton.setAttribute("class", "button");
     });
+    historyButton.addEventListener("click", searchTopic(this.value));
   }
 }
 
@@ -76,8 +82,7 @@ var page = document.querySelector(".page");
 
 var modeDefault = "dark";
 
-
-themeSwitcher.addEventListener("click", function() {  
+themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
     page.setAttribute("class", "light");
