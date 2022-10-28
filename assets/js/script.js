@@ -14,7 +14,7 @@ themeSwitcher.addEventListener("click", function () {
   }
 });
 
-const searchFrom = document.querySelector(".search");
+const submitBtn = document.getElementById("submit-btn");
 const input = document.querySelector(".input");
 const articleList = document.querySelector(".list");
 const datePickerStart = document.getElementById("start-date");
@@ -35,9 +35,10 @@ const end = datepicker(".end", {
 });
 const searchHistory = document.querySelector(".past-searches");
 
-searchFrom.addEventListener("submit", searchTopic);
+submitBtn.addEventListener("click", searchTopic);
 
 function searchTopic(e) {
+  console.log("test");
   articleList.innerHTML = "";
   e.preventDefault();
   const dateStartValue = `${document.querySelector(".start").value}T0000`;
@@ -84,4 +85,4 @@ function pastTopics() {
   }
 }
 
-searchFrom.addEventListener("submit", pastTopics);
+submitBtn.addEventListener("submit", pastTopics);
