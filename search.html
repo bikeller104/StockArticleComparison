@@ -4,86 +4,84 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <!--replace this title with the stock symbol in the javascript-->
-    <title id="page_title">Results</title>
+    <title id="page_title">Stock|News API Results</title>
   </head>
-  <body>
+  <body class="page dark">
     <header>
       <!--add a before element to this to add in the back arrow-->
-      <p>Return to Search Page</p>
-      <!--put the stock symbol that the user searched here-->
-      <h1 id="stock_symbol">AMZN</h1>
-      <!--place the current price of the searched stock here-->
-      <h2 id="cur_stock_price">$120.60</h2>
+      <h2>Return to Search Page</h2>      
     </header>
-    <main>
-
-      <section id="past_info">
-        <section id="past_price_section">
-         <!--enter the date range searched here-->
-         <h2>10/12/08-1/12/09</h2>
-
-         <!--section containing the starting price of the stock on the first search date-->
-         <div id="past_start_price_section">
-           <h3>Start Price</h3>
-           <h3 id="past_start_price">2.01</h3>
-         </div>
-
-         <!--section containing the ending price of the stock on the last search date-->
-         <div id="past_end_price_section">
-           <h3>End Price</h3>
-           <h3 id="past_end_price">1.98</h3>
-         </div>
-
-         <!--section containing the price change of the stock over the date range-->
-         <div id="past_price_change_section">
-           <h3>Price Change</h3>
-           <!--color this green if the price increased or red if the price decreased-->
-           <h3 id="past_price_change">0.03</h3>
-         </div>
-        </section>
-
-        <!--use javascript to add articles to this section-->
-        <section id="past_articles">
-          
-          <h1> Add Articles Here and remove this element</h1>
-        </section>
+    <main class="main-content-col">
+      <section>
+        <!--put the stock symbol that the user searched here-->
+        <h2 id="stock_symbol">AMZN</h2>
+        <!--place the current price of the searched stock here-->
+        <h3 id="cur_stock_price">$120.60</h3>
       </section>
+      <section class="flx-row">
+        <section class="search-result" id="past_info">
+          <section id="past_price_section">
+          <!--enter the date range searched here-->
+          <p>10/12/08-1/12/09</p>
 
-      <section id="present_info">
+          <!--section containing the starting price of the stock on the first search date-->
+          <div id="past_start_price_section">
+            <p>Start Price</p>
+            <p id="past_start_price">2.01</p>
+          </div>
+
+          <!--section containing the ending price of the stock on the last search date-->
+          <div id="past_end_price_section">
+            <p>End Price</p>
+            <p id="past_end_price">1.98</p>
+          </div>
+
+          <!--section containing the price change of the stock over the date range-->
+          <div id="past_price_change_section">
+            <p>Price Change</p>
+            <!--color this green if the price increased or red if the price decreased-->
+            <p id="past_price_change">0.03</p>
+          </div>
+          </section>
+
+          <!--use javascript to add articles to this section-->
+          <section id="past_articles">          
+            <h2> Add Articles Here and remove this element</h2>
+          </section>
+        </section>
+
+      <section class="search-result" id="present_info">
         <section id="present_price_info">
 
           <!--enter the date range searched here-->
-          <h2>10/12/08-1/12/09</h2>
+          <p>10/12/08-1/12/09</p>
           
           <!--section containing the starting price of the stock on the first search date-->
           <div id="present_start_price_section">
-            <h3>Start Price</h3>
-            <h3 id="present_start_price">171.26</h3>
+            <p>Start Price</p>
+            <p id="present_start_price">171.26</p>
           </div>
           
           <!--section containing the ending price of the stock on the last search date-->
           <div id="present_end_price_section">
-            <h3>End Price</h3>
-            <h3 id="present_end_price">132.61</h3>
+            <p>End Price</p>
+            <p id="present_end_price">132.61</p>
           </div>
           
           <!--section containing the price change of the stock over the date range-->
           <div id="present_price_change_section">
-            <h3>Price Change</h3>
+            <p>Price Change</p>
             <!--color this green if the price increased or red if the price decreased-->
-            <h3 id="present_price_change">38.65</h3>
+            <p id="present_price_change">38.65</p>
           </div>
         </section>
         <!--use javascript to add articles to this section-->
       <section id="present_articles">
         
-        <h1> Add Articles Here and remove this element</h1>
+        <h2> Add Articles Here and remove this element</h2>
 
       </section>
       </section>
@@ -95,7 +93,7 @@
           <div>
             <p>Dark &nbsp;&nbsp; </p>
           </div>
-          <label class="switch col">
+          <label class="switch">
             <input type="checkbox" id="theme-switcher">
             <span class="slider round"></span>
           </label>      
