@@ -67,10 +67,9 @@ function searchTopic(e) {
 //saves searches to local storage and generates button to redo search
 function pastTopics(e) {
   e.preventDefault();
-  localStorage.setItem("pastArticles", input.value);
   console.log(localStorage.getItem("pastArticles"));
   let pastArticlesData = JSON.parse(localStorage.getItem("pastArticles"));
-  if (pastArticlesData.includes(e)) {
+  if (pastArticlesData.includes(input.value)) {
     return;
   }
   if (!Array.isArray(pastArticlesData)) {
@@ -78,7 +77,7 @@ function pastTopics(e) {
   }
 
   pastArticlesData.push(input.value);
-  console.log(pastArticlesData, "Blah");
+  console.log(pastArticlesData);
   localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
 
   searchHistory.innerHTML = "";
@@ -91,10 +90,10 @@ function pastTopics(e) {
     });
   }
 
-  function runSearch() {
-    var searchValue = this.textContent;
-    input.value = searchValue;
-  }
+  // function runSearch() {
+  //   var searchValue = this.textContent;
+  //   input.value = searchValue;
+  // }
 
   historyButton.addEventListener("click", runSearch);
 }
