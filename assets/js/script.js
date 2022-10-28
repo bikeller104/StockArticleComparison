@@ -93,11 +93,13 @@ function pastTopics(e) {
   console.log(localStorage.getItem("pastArticles"));
   let pastArticlesData = JSON.parse(localStorage.getItem("pastArticles"));
   //TODO: fix the display of duplicate values.
-  // if (pastArticlesData.includes(input.value)) {
-  //   return;
-  // }
-  if (!Array.isArray(pastArticlesData)) {
-    pastArticlesData = [];
+  if (pastArticlesData.includes(input.value)) {
+    console.log(pastArticlesData.includes(input.value));
+    return;
+  } else {
+    if (!Array.isArray(pastArticlesData)) {
+      pastArticlesData = [];
+    }
   }
 
   pastArticlesData.push(input.value);
@@ -111,6 +113,7 @@ function pastTopics(e) {
       searchHistory.appendChild(historyButton);
       historyButton.textContent = e;
       historyButton.setAttribute("class", "button");
+      historyButton.addEventListener("click", runSearch);
     });
   }
 
@@ -118,7 +121,6 @@ function pastTopics(e) {
     var searchValue = document.querySelector("button");
     input.value = searchValue.textContent;
   }
-  historyButton.addEventListener("click", runSearch);
 }
 
 submitBtn.addEventListener("click", pastTopics);
