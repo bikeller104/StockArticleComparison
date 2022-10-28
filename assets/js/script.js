@@ -17,6 +17,8 @@ themeSwitcher.addEventListener("click", function () {
 const submitBtn = document.getElementById("submit-btn");
 const input = document.querySelector(".input");
 const articleList = document.querySelector(".list");
+
+// Date Picker Functionality
 const datePickerStart = document.getElementById("start-date");
 const datePickerSubBtn = document.getElementById("date-start-btn");
 const start = datepicker(".start", {
@@ -35,6 +37,16 @@ const end = datepicker(".end", {
 });
 const searchHistory = document.querySelector(".past-searches");
 
+// Submit to Results webpage
+var queryString = "./results.html"
+
+submitBtn.addEventListener("click", submitResults);
+
+function submitResults() {
+  location.assign(queryString);
+}
+
+// Original Functionality Below
 submitBtn.addEventListener("click", searchTopic);
 
 function searchTopic(e) {

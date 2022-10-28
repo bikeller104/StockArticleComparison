@@ -101,12 +101,14 @@ ul li {
   color: #bebebe   
 }
   
-.dark li a {
+.dark a {
   color: #bebebe;
 }
   
-.dark li a:hover {
-  background-color: #111;
+.dark a:hover {
+  opacity: 75%;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .dark input {
@@ -135,12 +137,13 @@ ul li {
   height: 100vh;
 }
   
-.light li a {
+.light a {
   color: black;
 }
   
-.light li a:hover {
-  background-color: rgb(130, 140, 148);
+.light a:hover {  
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .light input {
