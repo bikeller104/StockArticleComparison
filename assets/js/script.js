@@ -15,7 +15,7 @@ themeSwitcher.addEventListener("click", function () {
 });
 
 const submitBtn = document.getElementById("submit-btn");
-const input = document.querySelector(".input");
+const input = document.getElementById("#search-box");
 const articleList = document.querySelector(".list");
 
 // Date Picker Functionality
@@ -38,7 +38,7 @@ const end = datepicker(".end", {
 const searchHistory = document.querySelector(".past-searches");
 
 // Submit to Results webpage
-var queryString = "./results.html"
+var queryString = "./results.html?=" + input + "&start-date=" + start + "&end-date=" + end;
 
 submitBtn.addEventListener("click", submitResults);
 
