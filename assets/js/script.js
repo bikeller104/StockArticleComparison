@@ -35,16 +35,39 @@ const end = datepicker(".end", {
 });
 const searchHistory = document.querySelector(".past-searches");
 
-submitBtn.addEventListener("click", searchTopic);
+submitBtn.addEventListener("click", symbolLookup);
 
-function searchTopic(e) {
-  console.log("test");
-  articleList.innerHTML = "";
+function symbolLookup(e) {
   e.preventDefault();
+  let topic = input.value;
+  let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
+
+  fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      handleSearchRes(data);
+    });
+}
+
+function handleSearchRes(data) {
+  var url = "";
+  console.log(data.bestMatches);
   const dateStartValue = `${document.querySelector(".start").value}T0000`;
   const dateEndValue = `${document.querySelector(".end").value}T0000`;
-  let topic = input.value;
-  let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
+  if (data.bestMatches.length == 0) {
+    let topic = input.value;
+    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
+    getArticles(url);
+  } else {
+    let ticker = data.bestMatches[0].symbol;
+    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=${ticker}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
+    getArticles(url);
+  }
+}
+function getArticles(url) {
+  articleList.innerHTML = "";
 
   fetch(url)
     .then((res) => {
