@@ -19,10 +19,9 @@ N/A
 Try searching your favorite stock tickers to display articles and prices past and present.
 
 <!-- TODO: -->
+<!-- ADD a link to site here:  -->
 
-<!-- To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:-->
-
-![Screenshot](./screenshot.png)
+![Screenshot](./assets/images/screenshot.png)
 
 ## Credits
 
@@ -35,7 +34,8 @@ Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
 
-- Stock API: https://www.alphavantage.co/
+- News/Current Price: https://www.alphavantage.co/
+- Historical Data: https://eodhistoricaldata.com/financial-apis/stock-etfs-fundamental-data-feeds/#Quick_Start
 <!-- TODO: Add API info, resources, etc.  -->
 
 List your collaborators, if any, with links to their GitHub profiles.

@@ -4,8 +4,7 @@ var page = document.querySelector(".page");
 
 var modeDefault = "dark";
 
-
-themeSwitcher.addEventListener("click", function() {  
+themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
     page.setAttribute("class", "light");
@@ -14,7 +13,6 @@ themeSwitcher.addEventListener("click", function() {
     page.setAttribute("class", "dark");
   }
 });
-
 
 const searchFrom = document.querySelector(".search");
 const input = document.querySelector(".input");
