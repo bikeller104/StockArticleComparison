@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" href="./assets/datepicker/dist/datepicker.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Stock|News API</title>
@@ -18,7 +15,7 @@
       <aside class="past-searches">
         <h2>Recent Searches</h2>
       </aside>
-      <div class="search">
+      <div class="search">        
         <h2>Search For Your Stock Ticker Here:</h2>
         <input
           class="input"
@@ -26,22 +23,12 @@
           id="search-box"
           placeholder="Ex: GOOG"
         />
-        <button class="button" type="submit" id="submit-btn">Submit</button>
         <form class="date-search" id="start-date-form">
           <h2 for="date-range">Date Range:</h2>
-          <input
-            type="text"
-            id="range"
-            name="start-date"
-            class="start date-search-input"
-          />
-          <input
-            type="text"
-            id="range"
-            name="end-date"
-            class="end date-search-input"
-          />
+          <input type="text" id="range" name="start-date" class="start date-search-input" />
+          <input type="text" id="range" name="end-date" class="end date-search-input" />
         </form>
+        <button class="button" type="submit" id="submit-btn">Submit</button>                        
         <div>
           <ul class="list"></ul>
         </div>
@@ -51,15 +38,15 @@
       <div class="content is-normal has-text-centered">
         <div class="toggle">
           <div>
-            <p>Dark &nbsp;&nbsp;</p>
+            <p>Dark &nbsp;&nbsp; </p>
           </div>
           <label class="switch">
-            <input type="checkbox" id="theme-switcher" />
+            <input type="checkbox" id="theme-switcher">
             <span class="slider round"></span>
-          </label>
+          </label>      
           <div>
-            <p>&nbsp;&nbsp; Light</p>
-          </div>
+            <p> &nbsp;&nbsp; Light</p>
+          </div> 
         </div>
         <p>Created by The Squares 2022</p>
       </div>
