@@ -65,18 +65,24 @@ function searchTopic(e) {
 }
 
 //saves searches to local storage and generates button to redo search
-function pastTopics() {
-  let pastArticlesData = input.value;
-  let pastArticles = [];
+function pastTopics(e) {
+  e.preventDefault();
+  console.log(localStorage.getItem("pastArticles"));
+  let pastArticlesData = JSON.parse(localStorage.getItem("pastArticles"));
+  if (pastArticlesData.includes(e)) {
+    return;
+  }
+  if (!Array.isArray(pastArticlesData)) {
+    pastArticlesData = [];
+  }
+
+  pastArticlesData.push(input.value);
+  console.log(pastArticlesData, "Blah");
   localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
 
-  var storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
-  if (storedArticles) {
-    pastArticles.push(storedArticles);
-  }
-  console.log(pastArticles);
-  if (storedArticles.length) {
-    pastArticles.forEach((e) => {
+  searchHistory.innerHTML = "";
+  if (pastArticlesData.length) {
+    pastArticlesData.forEach((e) => {
       let historyButton = document.createElement("button");
       searchHistory.appendChild(historyButton);
       historyButton.textContent = e;
@@ -85,4 +91,4 @@ function pastTopics() {
   }
 }
 
-submitBtn.addEventListener("submit", pastTopics);
+submitBtn.addEventListener("click", pastTopics);
