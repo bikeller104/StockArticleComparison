@@ -67,6 +67,7 @@ function searchTopic(e) {
 //saves searches to local storage and generates button to redo search
 function pastTopics(e) {
   e.preventDefault();
+  localStorage.setItem("pastArticles", input.value);
   console.log(localStorage.getItem("pastArticles"));
   let pastArticlesData = JSON.parse(localStorage.getItem("pastArticles"));
   if (pastArticlesData.includes(e)) {
@@ -89,6 +90,13 @@ function pastTopics(e) {
       historyButton.setAttribute("class", "button");
     });
   }
+
+  function runSearch() {
+    var searchValue = this.textContent;
+    input.value = searchValue;
+  }
+
+  historyButton.addEventListener("click", runSearch);
 }
 
 submitBtn.addEventListener("click", pastTopics);
