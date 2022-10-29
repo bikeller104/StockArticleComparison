@@ -2,7 +2,7 @@
 var themeSwitcher = document.querySelector("#theme-switcher");
 var page = document.querySelector(".page");
 var submitBtn = document.getElementById("submit-btn");
-var input = document.getElementById("#search-box");
+var input = document.getElementById("search-box");
 var articleList = document.querySelector(".list");
 var searchHistory = document.querySelector(".past-searches");
 var topic = "";
@@ -34,8 +34,17 @@ var end = datepicker(".end", {
 // Submit to Results webpage
 function submitKeyClick(e) {
   e.preventDefault();
-  symbolLookup();
+  clearHistoryButtons();
+  pastTopics();
+  // symbolLookup();
 }
+function clearHistoryButtons() {
+  searchHistory.innerHTML = "";
+  var historyButtonHead = document.createElement("h2");
+  historyButtonHead.innerText = `Recent Searches`;
+  searchHistory.appendChild(historyButtonHead);
+}
+
 function symbolLookup() {
   let topic = document.getElementById("search-box").value;
   if (topic) {
@@ -87,25 +96,43 @@ function pageSwitcher() {
 }
 
 //saves searches to local storage and generates button to redo search
-// function pastTopics() {
-//   let pastArticlesData = input.value;
-//   let pastArticles = [];
-//   localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
+function pastTopics() {
+  if (input.value == "") return;
 
-//   var storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
-//   if (storedArticles) {
-//     pastArticles.push(storedArticles);
-//   }
-//   console.log(pastArticles);
-//   if (storedArticles.length) {
-//     pastArticles.forEach((e) => {
-//       let historyButton = document.createElement("button");
-//       searchHistory.appendChild(historyButton);
-//       historyButton.textContent = e;
-//       historyButton.setAttribute("class", "button");
-//     });
-//   }
-// }
+  let pastArticlesData = input.value;
+
+  console.log(pastArticlesData);
+  //localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
+
+  let storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
+  console.log(storedArticles);
+  console.log(typeof storedArticles);
+  if (storedArticles === null) {
+    storedArticles = [];
+    console.log("Stored Articles is no longer null");
+  }
+  console.log(storedArticles);
+  if (!Array.isArray(storedArticles)) {
+    console.log("stored articles is not an array");
+    storedArticles = [];
+  }
+  console.log(storedArticles.includes(pastArticlesData));
+  if (!storedArticles.includes(pastArticlesData))
+    storedArticles.push(pastArticlesData);
+  //if(storedArticles.includes(pastArticlesData)) //do nothing
+  //else
+  //add the data
+
+  localStorage.setItem("pastArticles", JSON.stringify(storedArticles));
+  if (storedArticles.length) {
+    storedArticles.forEach((el) => {
+      let historyButton = document.createElement("button");
+      historyButton.textContent = el;
+      historyButton.setAttribute("class", "button");
+      searchHistory.appendChild(historyButton);
+    });
+  }
+}
 
 //event listeners
 // submitBtn.addEventListener("submit", pastTopics);
