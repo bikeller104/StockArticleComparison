@@ -36,7 +36,11 @@ function submitKeyClick(e) {
   e.preventDefault();
   clearHistoryButtons();
   pastTopics();
-  // symbolLookup();
+  symbolpromise = symbolLookup();
+  symbolpromise.then((searchData) => {
+    //console.log(searchData); 
+    pageSwitcher(searchData );
+  })
 }
 function clearHistoryButtons() {
   searchHistory.innerHTML = "";
@@ -50,12 +54,14 @@ function symbolLookup() {
   if (topic) {
     let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
 
-    fetch(url)
+    return fetch(url)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        handleSearchRes(data);
+        //console.log(data);
+        return parseLookupData(data);
+        //handleSearchRes(data);
       });
   }
 }
@@ -77,6 +83,24 @@ function handleSearchRes(data) {
   }
 }
 
+/*
+  this funciton takes the data returned from alphavantage symbol lookup and 
+  parses it into a useable format
+*/
+function parseLookupData(data)
+{
+  searchData = new Object()
+  searchData.startDate = `${document.querySelector(".start").value}T0000`;
+  searchData.endDate = `${document.querySelector(".end").value}T0000`;
+  searchData.topic = input.value;;
+  searchData.ticker = "";
+  //console.log(data.bestMatches);
+  //console.log(data.bestMatches[0]);
+  //console.log("BestMatchSymbol =>" + data.bestMatches[0]["1. symbol"]);
+  if (!data.bestMatches.length == 0) searchData.ticker =data.bestMatches[0]["1. symbol"];
+  return searchData;
+}
+
 function getArticles(url) {
   articleList.innerHTML = "";
 
@@ -85,13 +109,18 @@ function getArticles(url) {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
+      //console.log(data);
       localStorage.setItem("articles", JSON.stringify(data));
-      pageSwitcher();
     });
 }
-function pageSwitcher() {
-  var queryString = `./results.html?=${topic}+${dateStartValue}+${dateEndValue}+`;
+function pageSwitcher(searchData) {
+  let datequerystart = `startDate=${searchData.startDate}`;
+  let datequeryend = `endDate=${searchData.endDate}`;
+  let topicOrTicker = searchData.ticker == "" ? "topic" : "ticker";
+  let valueOfTopicOrTicker = searchData.ticker == "" ? searchData.topic : searchData.ticker;
+  tickerQuery = `$tt-${topicOrTicker}=${valueOfTopicOrTicker}`;
+  var queryString = `./results.html?=${datequerystart}&${datequeryend}&${tickerQuery}`;
+  console.log(queryString);
   location.assign(queryString);
 }
 
@@ -101,22 +130,22 @@ function pastTopics() {
 
   let pastArticlesData = input.value;
 
-  console.log(pastArticlesData);
+  //console.log(pastArticlesData);
   //localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
 
   let storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
-  console.log(storedArticles);
-  console.log(typeof storedArticles);
+  //console.log(storedArticles);
+  //console.log(typeof storedArticles);
   if (storedArticles === null) {
     storedArticles = [];
-    console.log("Stored Articles is no longer null");
+    //console.log("Stored Articles is no longer null");
   }
-  console.log(storedArticles);
+  //console.log(storedArticles);
   if (!Array.isArray(storedArticles)) {
-    console.log("stored articles is not an array");
+    //console.log("stored articles is not an array");
     storedArticles = [];
   }
-  console.log(storedArticles.includes(pastArticlesData));
+  //console.log(storedArticles.includes(pastArticlesData));
   if (!storedArticles.includes(pastArticlesData))
     storedArticles.push(pastArticlesData);
   //if(storedArticles.includes(pastArticlesData)) //do nothing
