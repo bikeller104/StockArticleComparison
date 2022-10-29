@@ -20,18 +20,30 @@ var SearchData;
 
 SearchData = parseURL();
 
+
+
+if(SearchData.ticker == "")
+{
+  //hide the price info with css (Help Ari!!!!)
+}
+else
+{
+  getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));
+}
+
+
 function parseURL()
 {
 
   SearchData = new Object();
   
   var queryString = window.location.href;
-  console.log(queryString);
+  //console.log(queryString);
   let startDataPattern = '(?<=startDate=).+?(?=&)';
   const re_start = new RegExp(startDataPattern);
 
 let startDataMatches = re_start.exec(queryString);
-console.log(startDataMatches);
+//console.log(startDataMatches);
 SearchData.startDate = startDataMatches[0];
 
 let endDataPattern = '(?<=endDate=).+?(?=&)';
@@ -56,6 +68,43 @@ if(re_topic.test(queryString)) SearchData.topic = re_topic.exec(queryString)[0];
 
 
  return SearchData;
+}
+
+
+
+function getHistoricStockPrice(symbol, dateStart = "", dateEnd = "")
+{
+  let apiKey = "635b26dc35a434.57858620"
+  let apiKey2 = "63544169d45691.02124558"
+  //console.log("DateStart =>" + dateStart);
+  //console.log("DateEnd =>" + dateEnd);
+  let dates = dateStart != "" && dateEnd != "" ? `from=${dateStart}&to=${dateEnd}`: ``;
+  //console.log("DateRange =>" + dates)
+  let request = `https://eodhistoricaldata.com/api/eod/${symbol}.US?api_token=${apiKey2}&fmt=json&from=${dateStart}&to=${dateEnd}`
+
+  //console.log(request);
+
+
+  fetch(request, {mode: 'cors'})
+  .then((response) => {
+    return response.json();
+  }).then((json) => {
+    console.log(json);
+  });
+}
+
+function parseDate(date)
+{
+  //"2022-10-4" desired
+  //20221004T0000 incoming
+  //console.log(date);
+  let newDate = date.split("T")[0];
+  // console.log(newDate.slice(0,4));
+  // console.log(newDate.slice(4,6));
+  // console.log(newDate.slice(6));
+  newDate = newDate.slice(0,4) + "-" +newDate.slice(4,6) + "-" + newDate.slice(6);
+  console.log(newDate);
+  return newDate
 }
 
 themeSwitcher.addEventListener("click", function () {
