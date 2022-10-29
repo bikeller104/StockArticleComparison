@@ -1,9 +1,147 @@
-// Dark Light Mode Function
+// selectors
 var themeSwitcher = document.querySelector("#theme-switcher");
 var page = document.querySelector(".page");
-
+var submitBtn = document.getElementById("submit-btn");
+var input = document.getElementById("search-box");
+var articleList = document.querySelector(".list");
+var searchHistory = document.querySelector(".past-searches");
+var topic = "";
+var topicsArray = [];
+var tickersArray = [];
+var dateStartValue = "";
+var dateEndValue = "";
+var url = "";
 var modeDefault = "dark";
+// var queryString = "";
 
+// Date Picker Functionality
+var datePickerStart = document.getElementById("start-date");
+var datePickerSubBtn = document.getElementById("date-start-btn");
+var start = datepicker(".start", {
+  id: 1,
+  formatter: (input, date, instance) => {
+    const value = date.toLocaleDateString("sv").replaceAll("-", "");
+    input.value = value;
+  },
+});
+var end = datepicker(".end", {
+  id: 1,
+  formatter: (input, date, instance) => {
+    const value = date.toLocaleDateString("sv").replaceAll("-", "");
+    input.value = value;
+  },
+});
+// Submit to Results webpage
+function submitKeyClick(e) {
+  e.preventDefault();
+  clearHistoryButtons();
+  pastTopics();
+  // symbolLookup();
+}
+function clearHistoryButtons() {
+  searchHistory.innerHTML = "";
+  var historyButtonHead = document.createElement("h2");
+  historyButtonHead.innerText = `Recent Searches`;
+  searchHistory.appendChild(historyButtonHead);
+}
+
+function symbolLookup() {
+  let topic = document.getElementById("search-box").value;
+  if (topic) {
+    let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
+
+    fetch(url)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        handleSearchRes(data);
+      });
+  }
+}
+
+function handleSearchRes(data) {
+  let dateStartValue = `${document.querySelector(".start").value}T0000`;
+  let dateEndValue = `${document.querySelector(".end").value}T0000`;
+  if (data.bestMatches.length == 0) {
+    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
+    topicsArray.push(topic);
+    localStorage.setItem("topics", JSON.stringify(topicsArray));
+    getArticles(url);
+  } else {
+    let ticker = data.bestMatches[0].symbol;
+    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=${ticker}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
+    tickersArray.push(ticker);
+    localStorage.setItem("tickers", JSON.stringify(tickersArray));
+    getArticles(url);
+  }
+}
+
+function getArticles(url) {
+  articleList.innerHTML = "";
+
+  fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      localStorage.setItem("articles", JSON.stringify(data));
+      pageSwitcher();
+    });
+}
+function pageSwitcher() {
+  var queryString = `./results.html?=${topic}+${dateStartValue}+${dateEndValue}+`;
+  location.assign(queryString);
+}
+
+//saves searches to local storage and generates button to redo search
+function pastTopics() {
+  if (input.value == "") return;
+
+  let pastArticlesData = input.value;
+
+  console.log(pastArticlesData);
+  //localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
+
+  let storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
+  console.log(storedArticles);
+  console.log(typeof storedArticles);
+  if (storedArticles === null) {
+    storedArticles = [];
+    console.log("Stored Articles is no longer null");
+  }
+  console.log(storedArticles);
+  if (!Array.isArray(storedArticles)) {
+    console.log("stored articles is not an array");
+    storedArticles = [];
+  }
+  console.log(storedArticles.includes(pastArticlesData));
+  if (!storedArticles.includes(pastArticlesData))
+    storedArticles.push(pastArticlesData);
+  //if(storedArticles.includes(pastArticlesData)) //do nothing
+  //else
+  //add the data
+
+  localStorage.setItem("pastArticles", JSON.stringify(storedArticles));
+  if (storedArticles.length) {
+    storedArticles.forEach((el) => {
+      let historyButton = document.createElement("button");
+      historyButton.textContent = el;
+      historyButton.setAttribute("class", "button");
+      searchHistory.appendChild(historyButton);
+    });
+  }
+}
+
+//event listeners
+// submitBtn.addEventListener("submit", pastTopics);
+submitBtn.addEventListener("click", submitKeyClick);
+submitBtn.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    submitKeyClick(e);
+  }
+});
 themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
@@ -14,110 +152,7 @@ themeSwitcher.addEventListener("click", function () {
   }
 });
 
-const submitBtn = document.getElementById("submit-btn");
-const input = document.getElementById("#search-box");
-const articleList = document.querySelector(".list");
-
-// Date Picker Functionality
-const datePickerStart = document.getElementById("start-date");
-const datePickerSubBtn = document.getElementById("date-start-btn");
-const start = datepicker(".start", {
-  id: 1,
-  formatter: (input, date, instance) => {
-    const value = date.toLocaleDateString("sv").replaceAll("-", "");
-    input.value = value;
-  },
-});
-const end = datepicker(".end", {
-  id: 1,
-  formatter: (input, date, instance) => {
-    const value = date.toLocaleDateString("sv").replaceAll("-", "");
-    input.value = value;
-  },
-});
-const searchHistory = document.querySelector(".past-searches");
-
-// Submit to Results webpage
-var queryString = "./results.html?=" + input + "&start-date=" + start + "&end-date=" + end;
-
-submitBtn.addEventListener("click", submitResults);
-
-function submitResults() {
-  location.assign(queryString);
-}
-
-// Original Functionality Below
-submitBtn.addEventListener("click", symbolLookup);
-
-function symbolLookup(e) {
-  e.preventDefault();
-  let topic = input.value;
-  let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
-
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      handleSearchRes(data);
-    });
-}
-
-function handleSearchRes(data) {
-  var url = "";
-  console.log(data.bestMatches);
-  const dateStartValue = `${document.querySelector(".start").value}T0000`;
-  const dateEndValue = `${document.querySelector(".end").value}T0000`;
-  if (data.bestMatches.length == 0) {
-    let topic = input.value;
-    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
-    getArticles(url);
-  } else {
-    let ticker = data.bestMatches[0].symbol;
-    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=${ticker}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
-    getArticles(url);
-  }
-}
-function getArticles(url) {
-  articleList.innerHTML = "";
-
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log(data);
-      data.feed.forEach((feed) => {
-        let li = document.createElement("li");
-        let a = document.createElement("a");
-        a.setAttribute("href", feed.url);
-        a.setAttribute("target", "_blank");
-        a.textContent = feed.title;
-        li.appendChild(a);
-        articleList.appendChild(li);
-      });
-    });
-}
-
-//saves searches to local storage and generates button to redo search
-function pastTopics() {
-  let pastArticlesData = input.value;
-  let pastArticles = [];
-  localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
-
-  var storedArticles = JSON.parse(localStorage.getItem("pastArticles"));
-  if (storedArticles) {
-    pastArticles.push(storedArticles);
-  }
-  console.log(pastArticles);
-  if (storedArticles.length) {
-    pastArticles.forEach((e) => {
-      let historyButton = document.createElement("button");
-      searchHistory.appendChild(historyButton);
-      historyButton.textContent = e;
-      historyButton.setAttribute("class", "button");
-    });
-  }
-}
-
-submitBtn.addEventListener("submit", pastTopics);
+// arranged contents.  Global variables top, listeners bottom, functions in order
+//renamed function submitKeyClick and added enter key functionality
+//submitKeyClick now calls function to switch to results page
+//removed redundant event listeners and ran out of API calls
