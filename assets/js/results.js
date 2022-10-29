@@ -4,8 +4,8 @@ var page = document.querySelector(".page");
 var modeDefault = "dark";
 
 function articleFeed() {
-  var articleData = localStorage.getItem("articles");
-  console.log(JSON.parse(articleData));
+  var articleData = localStorage.getItem(JSON.parse("articles"));
+  console.log(articleData);
   JSON.parse(articleData).forEach((feed) => {
     let li = document.createElement("li");
     let a = document.createElement("a");
@@ -26,7 +26,9 @@ themeSwitcher.addEventListener("click", function () {
     page.setAttribute("class", "dark");
   }
 });
-articleFeed();
+
+
+//articleFeed();
 // RESULTS FUNCTIONALITY TO BE ADDED BELOW
 
 //get stock price from query string 
