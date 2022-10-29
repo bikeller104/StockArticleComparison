@@ -35,19 +35,20 @@ var end = datepicker(".end", {
 function submitKeyClick(e) {
   e.preventDefault();
   symbolLookup();
-  pageSwitcher();
 }
 function symbolLookup() {
   let topic = document.getElementById("search-box").value;
-  let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
+  if (topic) {
+    let url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${topic}&apikey=Y7EZGMG4B18PRI2S`;
 
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      handleSearchRes(data);
-    });
+    fetch(url)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        handleSearchRes(data);
+      });
+  }
 }
 
 function handleSearchRes(data) {
@@ -77,6 +78,7 @@ function getArticles(url) {
     .then((data) => {
       console.log(data);
       localStorage.setItem("articles", JSON.stringify(data));
+      pageSwitcher();
     });
 }
 function pageSwitcher() {
