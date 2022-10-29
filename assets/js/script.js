@@ -129,7 +129,7 @@ function pastTopics() {
   if (input.value == "") return;
 
   let pastArticlesData = input.value;
-
+  pastArticlesData = (pastArticlesData).toUpperCase();
   //console.log(pastArticlesData);
   //localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
 
