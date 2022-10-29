@@ -66,22 +66,7 @@ function symbolLookup() {
   }
 }
 
-function handleSearchRes(data) {
-  let dateStartValue = `${document.querySelector(".start").value}T0000`;
-  let dateEndValue = `${document.querySelector(".end").value}T0000`;
-  if (data.bestMatches.length == 0) {
-    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
-    topicsArray.push(topic);
-    localStorage.setItem("topics", JSON.stringify(topicsArray));
-    getArticles(url);
-  } else {
-    let ticker = data.bestMatches[0].symbol;
-    let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=${ticker}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
-    tickersArray.push(ticker);
-    localStorage.setItem("tickers", JSON.stringify(tickersArray));
-    getArticles(url);
-  }
-}
+
 
 /*
   this funciton takes the data returned from alphavantage symbol lookup and 
@@ -101,18 +86,7 @@ function parseLookupData(data)
   return searchData;
 }
 
-function getArticles(url) {
-  articleList.innerHTML = "";
 
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      //console.log(data);
-      localStorage.setItem("articles", JSON.stringify(data));
-    });
-}
 function pageSwitcher(searchData) {
   let datequerystart = `startDate=${searchData.startDate}`;
   let datequeryend = `endDate=${searchData.endDate}`;
