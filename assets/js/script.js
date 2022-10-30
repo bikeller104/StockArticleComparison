@@ -31,6 +31,7 @@ var end = datepicker(".end", {
     input.value = value;
   },
 });
+
 // Submit to Results webpage
 function submitKeyClick(e) {
   e.preventDefault();
@@ -42,6 +43,7 @@ function submitKeyClick(e) {
     pageSwitcher(searchData );
   })
 }
+
 function clearHistoryButtons() {
   searchHistory.innerHTML = "";
   var historyButtonHead = document.createElement("h2");
@@ -66,8 +68,6 @@ function symbolLookup() {
   }
 }
 
-
-
 /*
   this funciton takes the data returned from alphavantage symbol lookup and 
   parses it into a useable format
@@ -85,7 +85,6 @@ function parseLookupData(data)
   if (!data.bestMatches.length == 0) searchData.ticker =data.bestMatches[0]["1. symbol"];
   return searchData;
 }
-
 
 function pageSwitcher(searchData) {
   let datequerystart = `startDate=${searchData.startDate}`;
@@ -145,6 +144,7 @@ submitBtn.addEventListener("keypress", function (e) {
     submitKeyClick(e);
   }
 });
+
 themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
