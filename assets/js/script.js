@@ -31,6 +31,7 @@ var end = datepicker(".end", {
     input.value = value;
   },
 });
+
 // Submit to Results webpage
 function submitKeyClick(e) {
   e.preventDefault();
@@ -42,6 +43,7 @@ function submitKeyClick(e) {
     pageSwitcher(searchData);
   });
 }
+
 function clearHistoryButtons() {
   searchHistory.innerHTML = "";
   var historyButtonHead = document.createElement("h2");
@@ -143,6 +145,7 @@ submitBtn.addEventListener("keypress", function (e) {
     submitKeyClick(e);
   }
 });
+
 themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
