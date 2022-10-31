@@ -38,9 +38,9 @@ function submitKeyClick(e) {
   pastTopics();
   symbolpromise = symbolLookup();
   symbolpromise.then((searchData) => {
-    //console.log(searchData); 
-    pageSwitcher(searchData );
-  })
+    //console.log(searchData);
+    pageSwitcher(searchData);
+  });
 }
 function clearHistoryButtons() {
   searchHistory.innerHTML = "";
@@ -66,32 +66,48 @@ function symbolLookup() {
   }
 }
 
-
+// this takes past searches in local storage and renders them to the index.html home page.
+function renderPastSearches() {
+  let pastSearches = JSON.parse(localStorage.getItem("pastArticles"));
+  let recentSearches = document.querySelector("h2");
+  if (pastSearches.length) {
+    console.log(typeof pastSearches);
+    console.log(pastSearches, "this is past searches");
+    pastSearches.forEach((el) => {
+      let historyButton = document.createElement("button");
+      historyButton.textContent = el;
+      historyButton.setAttribute("class", "button");
+      recentSearches.appendChild(historyButton);
+    });
+  }
+}
+//call function to render past searches
+renderPastSearches();
 
 /*
   this funciton takes the data returned from alphavantage symbol lookup and 
   parses it into a useable format
 */
-function parseLookupData(data)
-{
-  searchData = new Object()
+function parseLookupData(data) {
+  searchData = new Object();
   searchData.startDate = `${document.querySelector(".start").value}T0000`;
   searchData.endDate = `${document.querySelector(".end").value}T0000`;
-  searchData.topic = input.value;;
+  searchData.topic = input.value;
   searchData.ticker = "";
   //console.log(data.bestMatches);
   //console.log(data.bestMatches[0]);
   //console.log("BestMatchSymbol =>" + data.bestMatches[0]["1. symbol"]);
-  if (!data.bestMatches.length == 0) searchData.ticker =data.bestMatches[0]["1. symbol"];
+  if (!data.bestMatches.length == 0)
+    searchData.ticker = data.bestMatches[0]["1. symbol"];
   return searchData;
 }
-
 
 function pageSwitcher(searchData) {
   let datequerystart = `startDate=${searchData.startDate}`;
   let datequeryend = `endDate=${searchData.endDate}`;
   let topicOrTicker = searchData.ticker == "" ? "topic" : "ticker";
-  let valueOfTopicOrTicker = searchData.ticker == "" ? searchData.topic : searchData.ticker;
+  let valueOfTopicOrTicker =
+    searchData.ticker == "" ? searchData.topic : searchData.ticker;
   tickerQuery = `$tt-${topicOrTicker}=${valueOfTopicOrTicker}`;
   var queryString = `./results.html?=${datequerystart}&${datequeryend}&${tickerQuery}`;
   console.log(queryString);
@@ -103,7 +119,7 @@ function pastTopics() {
   if (input.value == "") return;
 
   let pastArticlesData = input.value;
-  pastArticlesData = (pastArticlesData).toUpperCase();
+  pastArticlesData = pastArticlesData.toUpperCase();
   //console.log(pastArticlesData);
   //localStorage.setItem("pastArticles", JSON.stringify(pastArticlesData));
 
