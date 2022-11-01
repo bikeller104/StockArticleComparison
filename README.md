@@ -46,6 +46,7 @@ Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
 - Stock API: https://www.alphavantage.co/
+- EOD API: http://eodhistoricaldata.com/
 - Date picker: https://www.npmjs.com/package/js-datepicker
 - General help: https://stackoverflow.com/
 <!-- TODO: Add API info, resources, etc.  -->
