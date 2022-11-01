@@ -3,7 +3,6 @@ var themeSwitcher = document.querySelector("#theme-switcher");
 var page = document.querySelector(".page");
 var modeDefault = "dark";
 
-
 themeSwitcher.addEventListener("click", function () {
   if (modeDefault === "dark") {
     modeDefault = "light";
@@ -18,38 +17,41 @@ var SearchData;
 var articleList = document.getElementById("article-list");
 var articleListPresent = document.getElementById("present-article-list");
 
-
-
-
 SearchData = parseURL();
 let presentDateRange = getNewDateRange(SearchData);
 
-
-
 if (SearchData.ticker === undefined) {
-  $('#cur_stock_price').addClass('hide');
-  $('#past_start_price').addClass('hide');
-  $('#past_end_price').addClass('hide');
-  $('#past_price_change').addClass('hide');
-  $('#present_start_price').addClass('hide');
-  $('#present_end_price').addClass('hide');
-  $('#present_price_change').addClass('hide');
-  $('#stock_symbol').text(SearchData.topic);
+  $("#cur_stock_price").addClass("hide");
+  $("#past_start_price").addClass("hide");
+  $("#past_end_price").addClass("hide");
+  $("#past_price_change").addClass("hide");
+  $("#present_start_price").addClass("hide");
+  $("#present_end_price").addClass("hide");
+  $("#present_price_change").addClass("hide");
+  $("#stock_symbol").text(SearchData.topic);
 } else {
-  $('#cur_stock_price').removeClass('hide');
-  $('#past_start_price').removeClass('hide');
-  $('#past_end_price').removeClass('hide');
-  $('#past_price_change').removeClass('hide');
-  $('#present_start_price').removeClass('hide');
-  $('#present_end_price').removeClass('hide');
-  $('#present_price_change').removeClass('hide');
+  $("#cur_stock_price").removeClass("hide");
+  $("#past_start_price").removeClass("hide");
+  $("#past_end_price").removeClass("hide");
+  $("#past_price_change").removeClass("hide");
+  $("#present_start_price").removeClass("hide");
+  $("#present_end_price").removeClass("hide");
+  $("#present_price_change").removeClass("hide");
   $("#stock_symbol").text(SearchData.ticker);
-  console.log("Stock Symbol ->" + SearchData.ticker)
-  //getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));  
-  //getHistoricStockPrice(presentDateRange.ticker, parseDate(presentDateRange.startDate),parseDate(presentDateRange.endDate), false)
-
+  console.log("Stock Symbol ->" + SearchData.ticker);
+  getHistoricStockPrice(
+    SearchData.ticker,
+    parseDate(SearchData.startDate),
+    parseDate(SearchData.endDate)
+  );
+  getHistoricStockPrice(
+    presentDateRange.ticker,
+    parseDate(presentDateRange.startDate),
+    parseDate(presentDateRange.endDate),
+    false
+  );
 }
-console.log("present start date => " +presentDateRange.startDate);
+console.log("present start date => " + presentDateRange.startDate);
 presentDateRange.startDate = presentDateRange.startDate + "T0000";
 presentDateRange.endDate = presentDateRange.endDate + "T0000";
 
@@ -57,11 +59,10 @@ console.log(`pastdata => ${JSON.stringify(SearchData)}`);
 console.log(`present data => ${JSON.stringify(presentDateRange)}`);
 
 handleSearchRes(SearchData);
-handleSearchRes(presentDateRange , false);
-
+handleSearchRes(presentDateRange, false);
 
 function articleFeed(articleData, past = false) {
-  console.log("article feed => " +  articleData.feed)
+  console.log("article feed => " + articleData.feed);
   for (let i = 0; i < 5; ++i) {
     let feed = articleData.feed[i];
     let li = document.createElement("li");
@@ -71,7 +72,7 @@ function articleFeed(articleData, past = false) {
     a.setAttribute("target", "_blank");
     a.textContent = feed.title;
     li.appendChild(a);
-    if(past) articleList.appendChild(li);
+    if (past) articleList.appendChild(li);
     else articleListPresent.appendChild(li);
   }
 
@@ -116,7 +117,9 @@ function parseURL() {
 function handleSearchRes(SearchData, past = true) {
   let dateStartValue = SearchData.startDate;
   let dateEndValue = SearchData.endDate;
-  console.log(`past ${past} searchStart ${dateStartValue} searchEnd ${dateEndValue}`)
+  console.log(
+    `past ${past} searchStart ${dateStartValue} searchEnd ${dateEndValue}`
+  );
   let url;
   if (SearchData.ticker === undefined) {
     url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${SearchData.topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
@@ -131,7 +134,7 @@ function getArticles(url, past = true) {
 
   fetch(url)
     .then((res) => {
-      console.log(`fetch response => ${res.status}`)
+      console.log(`fetch response => ${res.status}`);
       return res.json();
     })
     .then((data) => {
@@ -140,7 +143,12 @@ function getArticles(url, past = true) {
       articleFeed(data, past);
     });
 }
-function getHistoricStockPrice(symbol, dateStart = "", dateEnd = "", past = true) {
+function getHistoricStockPrice(
+  symbol,
+  dateStart = "",
+  dateEnd = "",
+  past = true
+) {
   let apiKey = "635b26dc35a434.57858620";
   let apiKey2 = "63544169d45691.02124558";
   let apiKey3 = "63607cae1905f1.66551325";
@@ -160,55 +168,60 @@ function getHistoricStockPrice(symbol, dateStart = "", dateEnd = "", past = true
       return response.json();
     })
     .then((data) => {
-      console.log("JsonData -> " + data)
+      console.log("JsonData -> " + data);
       //let result = JSON.parse(data);
       console.log("json from fetch -> " + data);
       //console.log("parsed Json -> " + result);
       let priceInfo = convertStockAPIfetch(data);
       console.log("prices -> " + priceInfo);
-      if(past) {
+      if (past) {
         fillOutPastPriceData(priceInfo);
-      }
-      else {
+      } else {
         fillOutPresentPriceData(priceInfo);
       }
-
     });
 }
 
-function convertStockAPIfetch(result)
-{
+function convertStockAPIfetch(result) {
   let priceInfo = new Object();
   priceInfo.startPrice = result[0].close;
   priceInfo.startDate = result[0].date;
-  priceInfo.endPrice = result[result.length-1].close;
-  priceInfo.endDate = result[result.length-1].date;
+  priceInfo.endPrice = result[result.length - 1].close;
+  priceInfo.endDate = result[result.length - 1].date;
   priceInfo.priceChange = priceInfo.endPrice - priceInfo.startPrice;
   return priceInfo;
 }
 
-function fillOutPastPriceData(priceInfo)
-{
-  console.log(`past dates ${priceInfo.startDate} - ${priceInfo.endDate}`); 
-  $("#past_date_range").text(`${priceInfo.startDate.replaceAll('-','/')} - ${priceInfo.endDate.replaceAll('-','/')}`);
+function fillOutPastPriceData(priceInfo) {
+  console.log(`past dates ${priceInfo.startDate} - ${priceInfo.endDate}`);
+  $("#past_date_range").text(
+    `${priceInfo.startDate.replaceAll(
+      "-",
+      "/"
+    )} - ${priceInfo.endDate.replaceAll("-", "/")}`
+  );
   $("#past_start_price").text(priceInfo.startPrice);
   $("#past_end_price").text(priceInfo.endPrice);
-  
+
   $("#past_price_change").text(priceInfo.priceChange.toFixed(2));
 }
 
-function fillOutPresentPriceData(priceInfo)
-{
-  console.log("current price => " + priceInfo.endPrice)
+function fillOutPresentPriceData(priceInfo) {
+  console.log("current price => " + priceInfo.endPrice);
   $("#cur_stock_price").text(priceInfo.endPrice);
   console.log(`present dates ${priceInfo.startDate} - ${priceInfo.endDate}`);
-  $("#present_date_range").text(`${priceInfo.startDate.replaceAll('-','/')} - ${priceInfo.endDate.replaceAll('-','/')}`);
+  $("#present_date_range").text(
+    `${priceInfo.startDate.replaceAll(
+      "-",
+      "/"
+    )} - ${priceInfo.endDate.replaceAll("-", "/")}`
+  );
   $("#present_start_price").text(priceInfo.startPrice);
   $("#present_end_price").text(priceInfo.endPrice);
   $("#present_price_change").text(priceInfo.priceChange.toFixed(2));
 }
 
-function parseDate(date, seperator = '-') {
+function parseDate(date, seperator = "-") {
   //"2022-10-4" desired
   //20221004T0000 incoming
   //console.log(date);
@@ -217,14 +230,18 @@ function parseDate(date, seperator = '-') {
   // console.log(newDate.slice(4,6));
   // console.log(newDate.slice(6));
   newDate =
-    newDate.slice(0, 4) + seperator + newDate.slice(4, 6) + seperator + newDate.slice(6);
+    newDate.slice(0, 4) +
+    seperator +
+    newDate.slice(4, 6) +
+    seperator +
+    newDate.slice(6);
   //console.log(newDate);
   return newDate;
 }
 
-function getNewDateRange(SearchInfo) {  
-  const startDay = Date.parse(parseDate(SearchInfo.startDate, "/"));  
-  const endDay = Date.parse(parseDate(SearchInfo.endDate, "/"));  
+function getNewDateRange(SearchInfo) {
+  const startDay = Date.parse(parseDate(SearchInfo.startDate, "/"));
+  const endDay = Date.parse(parseDate(SearchInfo.endDate, "/"));
   // ticker = SearchInfo.ticker;
   // topic = SearchInfo.topic;
 
@@ -239,17 +256,29 @@ function getNewDateRange(SearchInfo) {
   let currentDay = new Date();
   let currentStartDay = new Date();
   currentStartDay.setDate(currentDay.getDate() - dayDifference);
-  //console.log(currentDay + `end`); 
+  //console.log(currentDay + `end`);
   //console.log(currentStartDay + `start`);
-  
+
   // Calculates start date from current date (mimicing the selected date range)
-  
+
   let curSearchInfo = new Object();
-   curSearchInfo.ticker = SearchInfo.ticker;
-   curSearchInfo.topic = SearchInfo.topic;
-   // return YYYYMMDD
-   curSearchInfo.startDate = `${currentStartDay.getFullYear()}${(currentStartDay.getMonth() + 1)}${currentStartDay.getDate() > 10 ? currentStartDay.getDate() : "0" + currentStartDay.getDate()}`;
-   curSearchInfo.endDate = `${currentDay.getFullYear()}${(currentDay.getMonth() + 1)}${currentDay.getDate() > 10 ? currentDay.getDate() : "0" + currentDay.getDate()}`;
+  curSearchInfo.ticker = SearchInfo.ticker;
+  curSearchInfo.topic = SearchInfo.topic;
+  // return YYYYMMDD
+  curSearchInfo.startDate = `${currentStartDay.getFullYear()}${
+    currentStartDay.getMonth() + 1
+  }${
+    currentStartDay.getDate() > 10
+      ? currentStartDay.getDate()
+      : "0" + currentStartDay.getDate()
+  }`;
+  curSearchInfo.endDate = `${currentDay.getFullYear()}${
+    currentDay.getMonth() + 1
+  }${
+    currentDay.getDate() > 10
+      ? currentDay.getDate()
+      : "0" + currentDay.getDate()
+  }`;
   //console.log(curSearchInfo.endDate);
   //console.log(curSearchInfo.startDate);
   return curSearchInfo;
