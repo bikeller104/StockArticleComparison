@@ -175,14 +175,15 @@ function renderPastSearches() {
 renderPastSearches();
  //this gives a click event to the past search buttons
  var pastButton = document.querySelectorAll(".historyButton");
- pastButton.addEventListener("click", clickPastSearches);
+//  pastButton.addEventListener("click", clickPastSearches);
  function clickPastSearches(el) {
    el.textContent = input.value;
    console.log(el.textContent);
-
+ }
 
 
 //event listeners
+
 // submitBtn.addEventListener("submit", pastTopics);
 submitBtn.addEventListener("click", submitKeyClick);
 submitBtn.addEventListener("keypress", function (e) {
