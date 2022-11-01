@@ -14,6 +14,7 @@ themeSwitcher.addEventListener("click", function () {
 
 var SearchData;
 var articleList = document.getElementById("article-list");
+var articleListPresent = $("#present-articleList")
 
 
 
