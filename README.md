@@ -1,5 +1,18 @@
 # StockArticleComparison
 
+## User Story
+
+Amateur investor who lacks professionally paid tools:
+I WANT to view stock information, pricing, & articles,
+SO THAT I can make predictions of what the stock price may do.
+
+## Acceptance Criteria
+
+WHEN I load the webpage I am presented with a search bar
+THEN I can enter my search criteria (stock Ticker or Company name)
+WHEN I search for a stock price over a certain date range
+THEN I can view articles about that company during that date range
+
 ## Description
 
 This website shows historic articles and current articles along with a stock price to compare historical data and current trends to make informed decisions.
