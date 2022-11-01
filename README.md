@@ -2,7 +2,7 @@
 
 ## User Story
 
-Amateur investor who lacks professionally paid tools:
+As an amateur investor who lacks professionally paid tools:
 I WANT to view stock information, pricing, & articles,
 SO THAT I can make predictions of what the stock price may do.
 
