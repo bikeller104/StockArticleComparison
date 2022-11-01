@@ -16,7 +16,8 @@ themeSwitcher.addEventListener("click", function () {
 
 var SearchData;
 var articleList = document.getElementById("article-list");
-var articleListPresent = $("#present-articleList")
+var articleListPresent = document.getElementById("present-article-list");
+
 
 
 
@@ -44,13 +45,23 @@ if (SearchData.ticker === undefined) {
   $('#present_price_change').removeClass('hide');
   $("#stock_symbol").text(SearchData.ticker);
   console.log("Stock Symbol ->" + SearchData.ticker)
-  getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));  
-  getHistoricStockPrice(presentDateRange.ticker, parseDate(presentDateRange.startDate),parseDate(presentDateRange.endDate), false)
+  //getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));  
+  //getHistoricStockPrice(presentDateRange.ticker, parseDate(presentDateRange.startDate),parseDate(presentDateRange.endDate), false)
 
 }
-handleSearchRes(SearchData);
+console.log("present start date => " +presentDateRange.startDate);
+presentDateRange.startDate = presentDateRange.startDate + "T0000";
+presentDateRange.endDate = presentDateRange.endDate + "T0000";
 
-function articleFeed(articleData) {
+console.log(`pastdata => ${JSON.stringify(SearchData)}`);
+console.log(`present data => ${JSON.stringify(presentDateRange)}`);
+
+handleSearchRes(SearchData);
+handleSearchRes(presentDateRange , false);
+
+
+function articleFeed(articleData, past = false) {
+  console.log("article feed => " +  articleData.feed)
   for (let i = 0; i < 5; ++i) {
     let feed = articleData.feed[i];
     let li = document.createElement("li");
@@ -60,7 +71,8 @@ function articleFeed(articleData) {
     a.setAttribute("target", "_blank");
     a.textContent = feed.title;
     li.appendChild(a);
-    articleList.appendChild(li);
+    if(past) articleList.appendChild(li);
+    else articleListPresent.appendChild(li);
   }
 
   // articleData.feed.forEach((feed) => {
@@ -101,29 +113,31 @@ function parseURL() {
 
   return SearchData;
 }
-function handleSearchRes(SearchData) {
+function handleSearchRes(SearchData, past = true) {
   let dateStartValue = SearchData.startDate;
   let dateEndValue = SearchData.endDate;
+  console.log(`past ${past} searchStart ${dateStartValue} searchEnd ${dateEndValue}`)
   let url;
   if (SearchData.ticker === undefined) {
     url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${SearchData.topic}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
   } else {
     url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&ticker=${SearchData.ticker}&time_from=${dateStartValue}&time_to=${dateEndValue}&apikey=Y7EZGMG4B18PRI2S`;
   }
-  getArticles(url);
+  getArticles(url, past);
 }
 
-function getArticles(url) {
+function getArticles(url, past = true) {
   articleList.innerHTML = "";
 
   fetch(url)
     .then((res) => {
+      console.log(`fetch response => ${res.status}`)
       return res.json();
     })
     .then((data) => {
       //console.log(data);
 
-      articleFeed(data);
+      articleFeed(data, past);
     });
 }
 function getHistoricStockPrice(symbol, dateStart = "", dateEnd = "", past = true) {
