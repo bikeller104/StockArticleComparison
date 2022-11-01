@@ -2,8 +2,43 @@
 var themeSwitcher = document.querySelector("#theme-switcher");
 var page = document.querySelector(".page");
 var modeDefault = "dark";
+themeSwitcher.addEventListener("click", function () {
+  if (modeDefault === "dark") {
+    modeDefault = "light";
+    page.setAttribute("class", "light");
+  } else {
+    modeDefault = "dark";
+    page.setAttribute("class", "dark");
+  }
+});
+
 var SearchData;
 var articleList = document.getElementById("article-list");
+
+
+
+SearchData = parseURL();
+getNewDateRange(SearchData);
+
+if (SearchData.ticker === undefined) {
+  $('#cur_stock_price').addClass('hide');
+  $('#past_start_price').addClass('hide');
+  $('#past_end_price').addClass('hide');
+  $('#past_price_change').addClass('hide');
+  $('#present_start_price').addClass('hide');
+  $('#present_end_price').addClass('hide');
+  $('#present_price_change').addClass('hide');
+} else {
+  $('#cur_stock_price').removeClass('hide');
+  $('#past_start_price').removeClass('hide');
+  $('#past_end_price').removeClass('hide');
+  $('#past_price_change').removeClass('hide');
+  $('#present_start_price').removeClass('hide');
+  $('#present_end_price').removeClass('hide');
+  $('#present_price_change').removeClass('hide');
+  // getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));  
+}
+handleSearchRes(SearchData);
 
 function articleFeed(articleData) {
   for (let i = 0; i < 5; ++i) {
@@ -22,15 +57,6 @@ function articleFeed(articleData) {
 
   // });
 }
-
-SearchData = parseURL();
-
-if (SearchData.ticker == "") {
-  //hide the price info with css (Help Ari!!!!)
-} else {
-  // getHistoricStockPrice(SearchData.ticker, parseDate(SearchData.startDate),parseDate(SearchData.endDate));
-}
-handleSearchRes(SearchData);
 
 function parseURL() {
   SearchData = new Object();
@@ -57,7 +83,7 @@ function parseURL() {
 
   //http://127.0.0.1:5501/results.html?=startDate=20221004T0000&endDate=20221024T0000&$tt-topic=Google
 
-  let topicPattern = "(<=tt-topic=).+?.$";
+  let topicPattern = "(?<=tt-topic=).+?.$";
   const re_topic = new RegExp(topicPattern);
 
   if (re_topic.test(queryString))
@@ -111,7 +137,7 @@ function getHistoricStockPrice(symbol, dateStart = "", dateEnd = "") {
     });
 }
 
-function parseDate(date) {
+function parseDate(date, seperator = '-') {
   //"2022-10-4" desired
   //20221004T0000 incoming
   //console.log(date);
@@ -120,9 +146,42 @@ function parseDate(date) {
   // console.log(newDate.slice(4,6));
   // console.log(newDate.slice(6));
   newDate =
-    newDate.slice(0, 4) + "-" + newDate.slice(4, 6) + "-" + newDate.slice(6);
+    newDate.slice(0, 4) + seperator + newDate.slice(4, 6) + seperator + newDate.slice(6);
   console.log(newDate);
   return newDate;
+}
+
+function getNewDateRange(SearchInfo) {  
+  const startDay = Date.parse(parseDate(SearchInfo.startDate, "/"));  
+  const endDay = Date.parse(parseDate(SearchInfo.endDate, "/"));  
+  // ticker = SearchInfo.ticker;
+  // topic = SearchInfo.topic;
+
+  // To calculate the time difference of two dates
+  var timeDifference = endDay - startDay;
+
+  // To calculate the no. of days between two dates
+  var dayDifference = timeDifference / (1000 * 3600 * 24);
+  console.log(dayDifference);
+
+  // Gets current date
+  let currentDay = new Date();
+  let currentStartDay = new Date();
+  currentStartDay.setDate(currentDay.getDate() - dayDifference);
+  console.log(currentDay + `end`); 
+  console.log(currentStartDay + `start`);
+  
+  // Calculates start date from current date (mimicing the selected date range)
+  
+  let curSearchInfo = new Object();
+   curSearchInfo.ticker = SearchInfo.ticker;
+   curSearchInfo.topic = SearchInfo.topic;
+   // return YYYYMMDD
+   curSearchInfo.startDate = `${currentStartDay.getFullYear()}${(currentStartDay.getMonth() + 1)}${currentStartDay.getDate() > 10 ? currentStartDay.getDate() : "0" + currentStartDay.getDate()}`;
+   curSearchInfo.endDate = `${currentDay.getFullYear()}${(currentDay.getMonth() + 1)}${currentDay.getDate() > 10 ? currentDay.getDate() : "0" + currentDay.getDate()}`;
+  console.log(curSearchInfo.endDate);
+  console.log(curSearchInfo.startDate);
+  return curSearchInfo;
 }
 
 themeSwitcher.addEventListener("click", function () {
