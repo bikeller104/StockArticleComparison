@@ -31,9 +31,9 @@ Try searching your favorite stock tickers to display articles and prices past an
 
 Link to site: https://bikeller104.github.io/StockArticleComparison
 
-![Screenshot](./screenshot.png)
+![Home Page](./screenshot.png)
 
-![Screenshot](./screenshot2.png)
+![Results Page](./screenshot2.png)
 
 ## Credits
 
