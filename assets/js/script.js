@@ -159,6 +159,7 @@ function pastTopics() {
 function renderPastSearches() {
   let pastSearches = JSON.parse(localStorage.getItem("pastArticles"));
   let recentSearches = document.querySelector("h2");
+  if (!pastSearches) return;
   if (pastSearches.length) {
     console.log(typeof pastSearches);
     console.log(pastSearches, "this is past searches");
