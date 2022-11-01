@@ -169,18 +169,19 @@ function renderPastSearches() {
       recentSearches.appendChild(historyButton);
     });
   }
-  };
+}
 
 //call function to render past searches
 renderPastSearches();
- //this gives a click event to the past search buttons
- var pastButton = document.querySelectorAll(".historyButton");
-//  pastButton.addEventListener("click", clickPastSearches);
- function clickPastSearches(el) {
-   el.textContent = input.value;
-   console.log(el.textContent);
- }
-
+//this gives a click event to the past search buttons
+var pastButton = document.querySelectorAll(".historyButton");
+[...pastButton].forEach(function (ele) {
+  ele.addEventListener("click", function (e) {
+    console.log("element itself ->" + ele);
+    input.value = ele.textContent;
+    console.log("text content -> " + ele.textContent);
+  });
+});
 
 //event listeners
 
