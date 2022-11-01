@@ -68,6 +68,24 @@ function symbolLookup() {
   }
 }
 
+// this takes past searches in local storage and renders them to the index.html home page.
+function renderPastSearches() {
+  let pastSearches = JSON.parse(localStorage.getItem("pastArticles"));
+  let recentSearches = document.querySelector("h2");
+  if (pastSearches.length) {
+    console.log(typeof pastSearches);
+    console.log(pastSearches, "this is past searches");
+    pastSearches.forEach((el) => {
+      let historyButton = document.createElement("button");
+      historyButton.textContent = el;
+      historyButton.setAttribute("class", "button");
+      recentSearches.appendChild(historyButton);
+    });
+  }
+}
+//call function to render past searches
+renderPastSearches();
+
 /*
   this funciton takes the data returned from alphavantage symbol lookup and 
   parses it into a useable format

@@ -18,9 +18,7 @@ N/A
 
 Try searching your favorite stock tickers to display articles and prices past and present.
 
-<!-- TODO: -->
-
-<!-- To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:-->
+<!-- TODO: add a link to the published site here -->
 
 ![Screenshot](./screenshot.png)
 
@@ -34,8 +32,9 @@ Ryan - https://github.com/rtcottle
 Resources:
 
 - README help: https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide
-
 - Stock API: https://www.alphavantage.co/
+- Date picker: https://www.npmjs.com/package/js-datepicker
+- General help: https://stackoverflow.com/
 <!-- TODO: Add API info, resources, etc.  -->
 
 List your collaborators, if any, with links to their GitHub profiles.
@@ -50,15 +49,9 @@ This project is under the [![License: MIT](https://img.shields.io/badge/License-
 
 <!-- TODO: Determine if these below want to be used or not.  -->
 
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-<!-- Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time. -->
-
 ## Features
 
-<!-- If your project has a lot of features, list them here. -->
+Check for current stock price as well as historical price for your specified company/ticker and get articles for the time period to compare to today's articles.
 
 ## How to Contribute
 
@@ -66,4 +59,4 @@ This project is under the [![License: MIT](https://img.shields.io/badge/License-
 
 ## Tests
 
-<!-- Go the extra mile and write tests for your application. Then provide examples on how to run them here. -->
+You should be able to put in a ticker (e.g., GOOG, GME, AAPL, etc.) or a company name to get relevant info.
