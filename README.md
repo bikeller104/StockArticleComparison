@@ -48,6 +48,7 @@ Resources:
 - Stock API: https://www.alphavantage.co/
 - EOD API: http://eodhistoricaldata.com/
 - Date picker: https://www.npmjs.com/package/js-datepicker
+- CSS style: https://bulma.io/
 - General help: https://stackoverflow.com/
 - MDN: https://developer.mozilla.org
 - W3 Schools: https://www.w3schools.com
